@@ -7,7 +7,7 @@ import history from '../utils/history';
 import { Navbar } from './Navbar';
 import { Home } from './Home';
 import { Profile } from './Profile';
-
+import { CreateSpace } from './spaces/CreateSpace';
 import { Spaces } from './spaces/Spaces';
 import { DataService } from '../services/DataService';
 
@@ -54,6 +54,9 @@ export class App extends React.Component<{}, AppState> {
                             </Route>
                             <Route exact path="/spaces">
                                 <Spaces dataService={this.dataService} />
+                            </Route>
+                            <Route exact path="/createSpace">
+                                <CreateSpace dataService={this.dataService} />
                             </Route>
                         </Switch>
                     </div>
