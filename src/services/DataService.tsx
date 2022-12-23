@@ -2,6 +2,7 @@ import { Space } from '../model/Model';
 import { ICreateSpaceState } from '../components/spaces/CreateSpace';
 import { S3, config } from 'aws-sdk';
 import { config as appConfig } from './config';
+import { generateRandomId } from '../utils/Utils';
 
 config.update({
     region: appConfig.REGION,
@@ -47,23 +48,12 @@ export class DataService {
     }
 
     public async getSpaces(): Promise<Space[]> {
-        const result: Space[] = [];
-        result.push({
-            location: 'Paris',
-            name: 'Best Location',
-            spaceId: '123',
+        const requestUrl = appConfig.api.spacesUrl;
+        const requestResult = await fetch(requestUrl, {
+            method: 'GET',
         });
-        result.push({
-            location: 'Paris',
-            name: 'Best Location',
-            spaceId: '124',
-        });
-        result.push({
-            location: 'Paris',
-            name: 'Best Location',
-            spaceId: '125',
-        });
-        return result;
+        const responseJSON = await requestResult.json();
+        return responseJSON;
     }
 
     public async reserveSpace(spaceId: string): Promise<string | undefined> {
